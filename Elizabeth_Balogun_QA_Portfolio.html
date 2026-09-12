@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elizabeth I. Balogun — Quality Assurance Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6F6F2;
+    --bg-raised: #FFFFFF;
+    --ink: #1A211D;
+    --ink-soft: #55605A;
+    --ink-faint: #8A9089;
+    --rule: #DCDED6;
+    --verified: #2F6F5E;
+    --verified-bg: rgba(47,111,94,0.09);
+    --progress: #9C6B22;
+    --progress-bg: rgba(156,107,34,0.11);
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --max: 760px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--verified); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover{ color: var(--ink); }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--verified); outline-offset: 3px; }
+
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    position: relative;
+    padding: 72px 0 44px;
+    background-image:
+      repeating-linear-gradient(to right, rgba(26,33,29,0.05) 0, rgba(26,33,29,0.05) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(to bottom, rgba(26,33,29,0.05) 0, rgba(26,33,29,0.05) 1px, transparent 1px, transparent 64px);
+    background-position: center top;
+  }
+
+  .hero::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+  }
+
+  .hero-inner{ opacity: 0; animation: rise 0.7s ease-out 0.05s forwards; }
+
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(10px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-inner{ animation: none; opacity: 1; }
+  }
+
+  .ledger{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px 20px;
+    padding-bottom: 36px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+  }
+
+  .ledger-item .label{
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.01em;
+    margin-bottom: 5px;
+  }
+
+  .ledger-item .value{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--verified);
+    flex-shrink: 0;
+  }
+
+  h1{
+    font-size: clamp(2.4rem, 5vw, 3.3rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    line-height: 1.05;
+  }
+
+  .role{
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--verified);
+    margin: 0 0 26px;
+  }
+
+  .tagline{
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    max-width: 34ch;
+    margin: 0 0 30px;
+  }
+
+  .hero-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  .hero-links a{ white-space: nowrap; }
+
+  /* ---------- Sections ---------- */
+
+  section, footer.contact{
+    padding: 52px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  h2{
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 26px;
+  }
+
+  h2 .n{ color: var(--ink-faint); margin-right: 10px; }
+
+  section p, footer p{ margin: 0 0 16px; max-width: 62ch; }
+  section p:last-child{ margin-bottom: 0; }
+
+  .summary p{ color: var(--ink-soft); }
+
+  /* ---------- Coverage ---------- */
+
+  .coverage-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 28px;
+  }
+
+  .coverage-cat h3{
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 5px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    color: var(--ink-soft);
+    background: var(--bg-raised);
+  }
+
+  .tag.tag-progress{
+    color: var(--progress);
+    border-color: var(--progress);
+    background: var(--progress-bg);
+  }
+
+  /* ---------- Experience ---------- */
+
+  .timeline{ display: flex; flex-direction: column; gap: 40px; }
+
+  .role-entry{
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+  }
+
+  .role-meta{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    padding-top: 4px;
+  }
+
+  .role-entry.current .role-meta{ color: var(--verified); }
+
+  .role-body h3{
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0 0 3px;
+    line-height: 1.3;
+  }
+
+  .role-body .at{ font-weight: 400; color: var(--ink-soft); }
+
+  .role-body .stint{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin: 0 0 14px;
+  }
+
+  .role-body ul{
+    margin: 0;
+    padding-left: 20px;
+    color: var(--ink-soft);
+  }
+
+  .role-body li{ margin-bottom: 9px; }
+  .role-body li:last-child{ margin-bottom: 0; }
+
+  @media (max-width: 620px){
+    .role-entry{ grid-template-columns: 1fr; gap: 8px; }
+    .role-body .stint{ display: none; }
+  }
+
+  /* ---------- Projects ---------- */
+
+  .projects-featured{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .project-card{
+    border-top: 2px solid var(--ink);
+    padding-top: 14px;
+  }
+
+  .project-card h3{
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+
+  .project-card p{
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .projects-more p{
+    font-size: 16px;
+    color: var(--ink-soft);
+    padding: 12px 0;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  .projects-more strong{ color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 620px){
+    .projects-featured{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Education ---------- */
+
+  .ledger-list{ list-style: none; margin: 0; padding: 0; }
+
+  .ledger-list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .ledger-list li:first-child{ border-top: none; }
+
+  .ledger-list .value{ font-size: 17px; }
+
+  .ledger-list .label{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 620px){
+    .ledger-list li{ flex-direction: column; gap: 4px; }
+    .ledger-list .label{ text-align: left; }
+  }
+
+  /* ---------- Contact ---------- */
+
+  footer.contact{ padding-bottom: 80px; }
+
+  footer.contact p.lede{
+    font-size: 21px;
+    color: var(--ink-soft);
+    max-width: 30ch;
+  }
+
+  .contact-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .contact-links a{
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    padding: 10px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 4px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .contact-links a:hover{
+    background: var(--ink);
+    color: var(--bg-raised);
+  }
+
+  @media (max-width: 480px){
+    .ledger{ grid-template-columns: 1fr 1fr; }
+    body{ font-size: 16.5px; }
+    .hero{ padding-top: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="ledger">
+        <div class="ledger-item">
+          <span class="label">Location</span>
+          <span class="value">Lagos, Nigeria</span>
+        </div>
+        <div class="ledger-item">
+          <span class="label">Experience</span>
+          <span class="value">3+ years</span>
+        </div>
+        <div class="ledger-item">
+          <span class="label">Currently</span>
+          <span class="value"><span class="dot"></span>Finchglow Holdings</span>
+        </div>
+        <div class="ledger-item">
+          <span class="label">In training</span>
+          <span class="value">Product management</span>
+        </div>
+      </div>
+
+      <h1>Elizabeth I. Balogun</h1>
+      <p class="role">Quality assurance engineer</p>
+      <p class="tagline">I test travel bookings, HR systems, and fintech platforms until they hold up in production — then I sign off on them.</p>
+
+      <div class="hero-links">
+        <a href="mailto:elizabethbalogun.bg@gmail.com">elizabethbalogun.bg@gmail.com</a>
+        <a href="tel:+2349052871995">+234 905 287 1995</a>
+        <a href="https://linkedin.com/in/elizabethiyanuoluwabalogun" target="_blank" rel="noopener">linkedin.com/in/elizabethiyanuoluwabalogun</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="summary" id="summary">
+    <h2>Summary</h2>
+    <p>Three-plus years securing release quality for web and mobile products across travel technology, HR technology, fintech, and ERP. I turn business requirements into rigorous test strategy — functional, regression, end-to-end, UAT, API, integration, cross-browser, accessibility, database — and I don't sign off until a release is ready to hold up in production.</p>
+    <p>I lead QA workstreams and work directly with product, engineering, UI/UX, and DevOps, often stepping in to run stand-ups myself. Right now I'm adding Python and product management, to connect QA execution with product strategy.</p>
+  </section>
+
+  <section id="coverage">
+    <h2>Coverage</h2>
+    <div class="coverage-grid">
+      <div class="coverage-cat">
+        <h3>Testing disciplines</h3>
+        <div class="tags">
+          <span class="tag">Functional</span>
+          <span class="tag">Regression</span>
+          <span class="tag">End-to-end</span>
+          <span class="tag">UAT</span>
+          <span class="tag">Integration</span>
+          <span class="tag">Cross-browser</span>
+          <span class="tag">Web and mobile</span>
+          <span class="tag">Accessibility</span>
+        </div>
+      </div>
+      <div class="coverage-cat">
+        <h3>API and data</h3>
+        <div class="tags">
+          <span class="tag">REST API testing</span>
+          <span class="tag">Postman</span>
+          <span class="tag">Data validation</span>
+          <span class="tag">Database migration regression</span>
+          <span class="tag">MongoDB Compass</span>
+        </div>
+      </div>
+      <div class="coverage-cat">
+        <h3>QA delivery</h3>
+        <div class="tags">
+          <span class="tag">Test case design</span>
+          <span class="tag">Test planning</span>
+          <span class="tag">Defect management</span>
+          <span class="tag">Release validation</span>
+          <span class="tag">QA sign-off</span>
+          <span class="tag">Risk-based testing</span>
+        </div>
+      </div>
+      <div class="coverage-cat">
+        <h3>Agile and leadership</h3>
+        <div class="tags">
+          <span class="tag">Agile/Scrum</span>
+          <span class="tag">Requirements analysis</span>
+          <span class="tag">Test lead</span>
+          <span class="tag">Stand-up facilitation</span>
+          <span class="tag">Stakeholder collaboration</span>
+        </div>
+      </div>
+      <div class="coverage-cat" style="grid-column: 1 / -1;">
+        <h3>Tools</h3>
+        <div class="tags">
+          <span class="tag">Jira</span>
+          <span class="tag">Azure DevOps</span>
+          <span class="tag">Postman</span>
+          <span class="tag">JMeter</span>
+          <span class="tag">MongoDB Compass</span>
+          <span class="tag">Microsoft 365</span>
+          <span class="tag">Slack</span>
+          <span class="tag">Google Workspace</span>
+          <span class="tag tag-progress">Python — in progress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="timeline">
+
+      <article class="role-entry current">
+        <div class="role-meta">Mar 2025 —<br>Present</div>
+        <div class="role-body">
+          <h3>Quality assurance engineer <span class="at">— Finchglow Holdings</span></h3>
+          <p class="stint">Hybrid</p>
+          <ul>
+            <li>Own end-to-end QA across four live products in one holding group — FCM Travel Nigeria, Finchglow Travels, Travelden, and Lagos Aviation Academy — as the single point of quality accountability across the portfolio.</li>
+            <li>Test the Travelden customer booking platform end to end: account access, flight search, booking, and the surrounding customer journey.</li>
+            <li>Validate the Travelden Agency platform's booking-processing workflows, protecting agent-facing transactions core to revenue.</li>
+            <li>Led QA on the Lagos Aviation Academy website launch ahead of go-live.</li>
+            <li>Keep the Finchglow Travels public site quality-checked through continuous regression as fixes and features ship.</li>
+            <li>Facilitate stand-ups in the product manager's absence, keeping delivery moving without disruption.</li>
+            <li>Shaping QA and product input into the Finchglow Holdings Partner Platform from concept stage.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role-entry">
+        <div class="role-meta">Sep 2025 —<br>Aug 2026</div>
+        <div class="role-body">
+          <h3>Software tester, QA test lead <span class="at">— NotchHR</span></h3>
+          <p class="stint">Hybrid, concurrent with Finchglow Holdings</p>
+          <ul>
+            <li>Led QA across seven concurrent product areas of an HRMS suite: jobsite, recruitment, attendance and shift management, chats and announcements, mobile app, email templates, and roles and permissions.</li>
+            <li>Ran the full testing spectrum — functional, regression, UAT, integration, API, cross-browser, accessibility, mobile — across every core workflow.</li>
+            <li>Validated private job portals, recruitment flows, branding and redirection logic, dynamic terms and conditions, and external career-site webhook sync, for a pipeline client companies rely on directly.</li>
+            <li>Tested shift assignment, role and team configuration, leave, handover, training, approvals, cash-advance uploads, eNPS, session controls, and authentication.</li>
+            <li>Ran REST API validation in Postman and performance testing in JMeter; verified data integrity directly in MongoDB Compass.</li>
+            <li>Led database-migration regression testing after a move to a self-hosted server — zero tolerance for silent data loss, and none occurred.</li>
+            <li>Owned QA release sign-off in Azure DevOps, partnering with product, UI/UX, engineering, and DevOps across every sprint.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role-entry">
+        <div class="role-meta">Aug 2023 —<br>Mar 2025</div>
+        <div class="role-body">
+          <h3>Software tester, team lead <span class="at">— Technocrat Consult &amp; IT Systems Ltd</span></h3>
+          <p class="stint">&nbsp;</p>
+          <ul>
+            <li>Directed QA across ERP, enterprise, fintech, and client-facing software — the widest product spread of any role to date.</li>
+            <li>Built test cases and full regression suites straight from requirements and business workflows.</li>
+            <li>Validated accounting, payroll, HR, inventory, and financial processes, where a missed defect carries direct financial consequences.</li>
+            <li>Ran functional, UAT, integration, accessibility, and cross-browser testing, and managed defects through Jira.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="role-entry">
+        <div class="role-meta">Aug 2024 —<br>Sep 2024</div>
+        <div class="role-body">
+          <h3>Software tester, UAT consultant <span class="at">— ZAP Africa</span></h3>
+          <p class="stint">Contract</p>
+          <ul>
+            <li>Delivered full UAT ahead of a product launch on a fixed contract timeline, documenting defects and usability issues and validating fixes with the product team through go-live.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-featured">
+      <div class="project-card">
+        <h3>Travelden customer &amp; agency platforms</h3>
+        <p>End-to-end QA of customer booking journeys and the agency booking-processing workflows behind them.</p>
+      </div>
+      <div class="project-card">
+        <h3>NotchHR jobsite &amp; recruitment</h3>
+        <p>Test lead across recruitment workflows, private job portals, branding and redirection, and integrations.</p>
+      </div>
+      <div class="project-card">
+        <h3>NotchHR HRMS web &amp; mobile</h3>
+        <p>Test lead across core HR, attendance, leave, learning, permissions, and mobile modules.</p>
+      </div>
+      <div class="project-card">
+        <h3>Leadway Assurance jobsite revamp</h3>
+        <p>Test lead across desktop, tablet, and mobile recruitment experiences.</p>
+      </div>
+    </div>
+    <div class="projects-more">
+      <p><strong>Finchglow Holdings Partner Platform</strong> — QA and product input during ideation and planning.</p>
+      <p><strong>ZAP mobile application</strong> — UAT across user management, payment workflows, and transaction validation.</p>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <ul class="ledger-list">
+      <li>
+        <span class="value">B.A. English &amp; Literary Studies, Second Class Upper</span>
+        <span class="label">Tai Solarin University of Education</span>
+      </li>
+      <li>
+        <span class="value">Professional Certificate for Software Testing</span>
+        <span class="label">Testing Academy, 2026</span>
+      </li>
+      <li>
+        <span class="value">Product management</span>
+        <span class="label">TS Academy, 2026 — in progress</span>
+      </li>
+      <li>
+        <span class="value">Professional development programme</span>
+        <span class="label">ALX Africa, 2024</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="contact" id="contact">
+    <h2>Contact</h2>
+    <p class="lede">Ready to own quality on your next release.</p>
+    <div class="contact-links">
+      <a href="mailto:elizabethbalogun.bg@gmail.com">Email</a>
+      <a href="tel:+2349052871995">Call</a>
+      <a href="https://linkedin.com/in/elizabethiyanuoluwabalogun" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
